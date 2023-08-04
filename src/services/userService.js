@@ -66,6 +66,10 @@ class UserService {
   async login(req, res) {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+      throw new Error("이메일과 비밀번호는 필수 입력 항목입니다.");
+    }
+
     try {
       // 데이터베이스 연결
       const db = await connectToDatabase();
@@ -77,7 +81,7 @@ class UserService {
 
       // 유저가 존재하지 않을 경우
       if (users.length === 0) {
-        throw new Error("유효하지 않은 이메일 주소입니다.");
+        throw new Error("가입되지 않은 이메일 주소입니다.");
       }
       // 비밀번호 확인
       const user = users[0];
