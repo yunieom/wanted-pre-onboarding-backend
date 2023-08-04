@@ -30,7 +30,7 @@ const corsOptions = {
 
 const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
+const fs = require("fs-extra");
 
 if (!fs.existsSync("uploads")) {
   fs.mkdirSync("uploads");
