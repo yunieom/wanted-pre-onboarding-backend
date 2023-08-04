@@ -4,7 +4,7 @@
     "description": "a pre-onboarding task",
     "main": "app.js",
     "scripts": {
-        "start": "cd src && node app.js"
+        "start": "node app.js"
     },
     "author": "Yoonju Eom",
     "license": "ISC",

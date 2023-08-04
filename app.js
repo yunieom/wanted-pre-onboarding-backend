@@ -3,10 +3,10 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const env = require('./envconfig');
-const connectToDatabase = require('./db/db');
+const connectToDatabase = require('./src/db/db');
 //const { errorHandlerMiddleware } = require('./middlewares/errorHandler');
 
-const indexRouter = require('./routes/index');
+const indexRouter = require('./src/routes/index');
 //const userRouter = require('./routes/userRouter');
 //const postRouter = require('./routes/userRouter');
 const port = Number(env.PORT || 5000);
@@ -39,7 +39,7 @@ if (!fs.existsSync('uploads')) {
 // 데이터베이스 연결
 const con = connectToDatabase();
 app.listen(process.env.PORT, () => {
-    console.log('server on!');
+    console.log(port,'server on!');
 });
 
   
