@@ -13,7 +13,7 @@ class UserService {
     return password.length >= minLength;
   }
 
-  //회원가입
+  /* 회원가입 */
   async register(req, res) {
     const { email, password } = req.body;
     console.log(email, password);
@@ -62,7 +62,7 @@ class UserService {
     }
   }
 
-  //로그인
+  /* 로그인 */
   async login(req, res) {
     const { email, password } = req.body;
 

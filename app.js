@@ -8,7 +8,7 @@ const connectToDatabase = require("./src/db/db");
 
 const indexRouter = require("./src/routes/index");
 const userRouter = require("./src/routes/userRouter");
-//const postRouter = require('./routes/userRouter');
+const postRouter = require("./src/routes/postRouter");
 const port = Number(env.PORT || 5000);
 const allowedOrigins = [
   "http://127.0.0.1:3000",
@@ -48,8 +48,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", userRouter);
-
+app.use("/posts", postRouter);
 // app.use('/static', express.static('public')); // 정적파일 관리 경로
 
-// app.use('/posts', postRouter);
 // app.use(errorHandlerMiddleware);
