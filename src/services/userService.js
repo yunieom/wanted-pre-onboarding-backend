@@ -93,8 +93,8 @@ class UserService {
 
       // 커스텀 JWT 생성
       const payload = {
-        userId: user.userId,
-        isAdmin: user.isAdmin,
+        userId: user.user_id,
+        email: email,
       };
       const token = generateToken(payload);
 

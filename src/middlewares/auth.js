@@ -23,8 +23,10 @@ const loginRequired = (req, res, next) => {
 };
 
 const checkAuthor = async (req, res, next) => {
-  const { postId } = req.params;
-  const { user } = req;
+  const postId = req.params.postId;
+
+  console.log(req.user.email);
+  console.log(post.user.email);
 
   try {
     // 데이터베이스 연결
@@ -41,7 +43,7 @@ const checkAuthor = async (req, res, next) => {
     }
 
     // 작성자와 로그인한 사용자를 비교하여 권한 확인
-    if (post.user_id !== user.user_id) {
+    if (post.user.email !== req.user.email) {
       return res.status(403).json({ error: "작성자만 수정할 수 있습니다." });
     }
 
