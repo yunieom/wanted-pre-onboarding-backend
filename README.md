@@ -6,6 +6,10 @@
 src
 ├── db
 │   └── db.js
+├── utils
+│   └── jwt.js
+├── middlewares
+│   └── auth.js
 ├── routes
 │   ├── index.js
 │   ├── userRouter.js
