@@ -31,14 +31,12 @@ const checkAuthor = async (req, res, next) => {
   try {
     // 데이터베이스 연결
     const db = await connectToDatabase();
-    console.log("연결완료");
+
     // 게시물의 작성자 정보를 데이터베이스에서 조회
     const [posts] = await db
       .promise()
       .query("SELECT * FROM posts WHERE post_id = ?", [postId]);
     const post = posts[0];
-    console.log("post:", post);
-    console.log(post.email);
 
     if (!post) {
       return res.status(404).json({ error: "작성한 게시물이 없습니다." });
@@ -46,7 +44,7 @@ const checkAuthor = async (req, res, next) => {
 
     // 작성자와 로그인한 사용자를 비교하여 권한 확인
     if (post.email !== req.user.email) {
-      return res.status(403).json({ error: "작성자만 수정할 수 있습니다." });
+      return res.status(403).json({ error: "작성자에게만 권한이 있습니다." });
     }
 
     // 작성자인 경우 다음 미들웨어로 이동

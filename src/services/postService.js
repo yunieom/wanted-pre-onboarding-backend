@@ -29,11 +29,9 @@ class PostController {
     }
   }
 
-  // 게시물 수정
-  async updatePost(req, res) {
-    const { title, content } = req.body;
+  // 게시물 조회
+  async readPost(req, res) {
     const postId = req.params.postId;
-    console.log(postId);
 
     try {
       // 데이터베이스 연결
@@ -50,8 +48,31 @@ class PostController {
         throw new Error("게시물을 찾을 수 없습니다.");
       }
 
-      // 게시글 수정 시간
-      const updatedAt = new Date().toString();
+      return post;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // 게시물 수정
+  async updatePost(req, res) {
+    const { title, content } = req.body;
+    const postId = req.params.postId;
+
+    try {
+      // 데이터베이스 연결
+      const db = await connectToDatabase();
+
+      // 게시물 조회
+      const [posts] = await db
+        .promise()
+        .query("SELECT * FROM posts WHERE post_id = ?", [postId]);
+      const post = posts[0];
+
+      // 게시물이 존재하지 않을 경우
+      if (!post) {
+        throw new Error("게시물을 찾을 수 없습니다.");
+      }
 
       // 게시물의 제목과 내용을 업데이트
       await db
@@ -62,7 +83,36 @@ class PostController {
           postId,
         ]);
 
-      return true; // 수정 성공
+      return { title, content }; // 수정 성공
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // 게시물 삭제
+  async deletePost(req, res) {
+    const postId = req.params.postId;
+
+    try {
+      // 데이터베이스 연결
+      const db = await connectToDatabase();
+
+      // 게시물 조회
+      const [posts] = await db
+        .promise()
+        .query("SELECT * FROM posts WHERE post_id = ?", [postId]);
+      const post = posts[0];
+
+      // 게시물이 존재하지 않을 경우
+      if (!post) {
+        throw new Error("게시물을 찾을 수 없습니다.");
+      }
+
+      const [result] = await db
+        .promise()
+        .query("DELETE FROM posts WHERE post_id = ?", [postId]);
+
+      return result.postId;
     } catch (error) {
       throw error;
     }
