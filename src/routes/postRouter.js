@@ -3,21 +3,21 @@ const router = express.Router();
 const postController = require("../controllers/postController");
 const { loginRequired, checkAuthor } = require("../middlewares/auth");
 
-// 게시물 생성
 router.post("/", loginRequired, postController.createPost);
 
-// 전체 게시물 조회
-router.get("/", postController.readAllPosts);
+router.get("/all", postController.readAllPosts);
 
-// 게시물 조회
 router.get("/:postId", postController.readPost);
 
-// 게시물 수정
-router.patch("/:postId", loginRequired, checkAuthor, postController.updatePost);
+router.patch(
+  "/:postId/update",
+  loginRequired,
+  checkAuthor,
+  postController.updatePost
+);
 
-// 게시물 삭제
 router.delete(
-  "/:postId",
+  "/:postId/delete",
   loginRequired,
   checkAuthor,
   postController.deletePost
