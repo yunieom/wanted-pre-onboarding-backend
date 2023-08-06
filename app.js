@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const env = require("./envconfig");
 const connectToDatabase = require("./src/db/db");
-const YAML = require("yamljs"); // yaml 파일을 파싱하기 위한 라이브러리
+const YAML = require("yamljs");
 const swaggerUi = require("swagger-ui-express");
 
 const indexRouter = require("./src/routes/index");
@@ -31,32 +31,6 @@ const corsOptions = {
   credentials: true, // 쿠키를 허용하기 위한 설정
 };
 
-// const options = {
-//   swaggerDefinition: {
-//     openapi: "3.0.0",
-//     info: {
-//       title: "My API",
-//       description: "My API description",
-//       version: "1.0.0",
-//     },
-//     servers: [
-//       {
-//         url: "http://localhost:3000/",
-//       },
-//     ],
-//     tags: [
-//       {
-//         name: "Users",
-//         description: "유저 API",
-//       },
-//       {
-//         name: "Posts",
-//         description: "게시물 API",
-//       },
-//     ],
-//   },
-//   apis: ["./src/routes/*.js"], // API 라우트 파일들의 경로를 지정
-// };
 // swagger.yaml 파일을 파싱하여 JSON 객체로 변환
 const swaggerDocument = YAML.load("./swagger.yaml");
 
