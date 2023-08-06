@@ -67,6 +67,7 @@ COOKIE_DOMAIN=
 npm start
 ```
 
+
 <br>
 <br>
 
@@ -97,6 +98,7 @@ npm start
 <br>
 
 ## 4. 구현한 API의 동작을 촬영한 데모 영상 링크
+🔗 [구현한 API 동작을 촬용한 데모영상 비디오](https://www.youtube.com/watch?v=IYSOkTNdpA4)
 
 <br>
 <br>
@@ -108,7 +110,8 @@ npm start
 - `Route <-> Controller <-> Service` 의 삼계층 구조로 비지니스 로직은 Service에서만 처리하도록 설계했습니다.
 - users 테이블과 posts 테이블은 `email`을 통해 관계가 연결되어 있고, 인덱스 조회를 빠르게 할 수 있도록 각 테이블의 \_id로 PK를 설정했습니다.
 - `auth 미들웨어`에 loginRequired와 checkAuthor 를 사용하여 코드의 중복을 줄였습니다.
-- 최소한의 라이브러리를 사용해 무겁지 않도록 설계하려 했습니다.
+- DB 세션시간과, 서비스 시간 타임존을 `"Asia/Seoul"`으로 변경해 서버시간 및 서비스 모두 애플리케이션 실행시간(한국시간)으로 맞췄습니다.
+- POST title, content 필드의 캐릭터셋, 콜레이션을 UTF-8로 맞춰 `이모티콘`등록이 가능합니다.
 
 ### Users
 
@@ -128,6 +131,9 @@ npm start
 <br>
 
 ## 6. API 명세(request/response 포함)
+
+### 명세서 및 테스트 코드 실행
+http://localhost:3000/api-docs
 
 ### Users
 
