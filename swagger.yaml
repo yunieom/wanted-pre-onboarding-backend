@@ -139,38 +139,44 @@ paths:
           description: 인증되지 않은 사용자입니다.
         "500":
           description: 서버 오류
+  paths:
   /posts/all:
     get:
-      summary: 전체 게시물 조회
+      summary: 전체 게시물 조회 (페이징 가능)
       tags:
         - Posts
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 1
+          description: 페이지 번호 (기본값: 1)
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+            minimum: 1
+          description: 한 페이지에 표시할 게시물 수 (기본값: 10)
       responses:
-        "200":
+        '200':
           description: 게시물 조회에 성공했습니다.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: string
-                    example: "게시물 조회에 성공했습니다."
+                  totalPosts:
+                    type: integer
+                  currentPage:
+                    type: integer
+                  pageSize:
+                    type: integer
                   posts:
                     type: array
                     items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        title:
-                          type: string
-                        content:
-                          type: string
-                      example:
-                        id: 1
-                        title: 게시물 제목
-                        content: 게시물 내용입니다.
-        "500":
+                      $ref: '#/components/schemas/Post'
+        '500':
           description: 서버 오류
   /posts/{postId}:
     get:

@@ -29,7 +29,7 @@ class PostService {
     }
   }
 
-  // 전체 게시물 조회
+  // 페이지별 게시물 조회
   async readAllPosts(req, res) {
     const page = req.query.page || 1;
     const pageSize = req.query.pageSize || 10;
@@ -37,6 +37,11 @@ class PostService {
     try {
       // 데이터베이스 연결
       const db = await connectToDatabase();
+
+      // 전체 게시물 수 조회 쿼리
+      const countQuery = "SELECT COUNT(*) as total FROM posts";
+      const [countRows] = await db.promise().query(countQuery);
+      const totalPosts = countRows[0].total;
 
       // 전체 게시물 목록 조회 쿼리
       const query = "SELECT * FROM posts ORDER BY post_id ASC LIMIT ? OFFSET ?";
@@ -64,7 +69,12 @@ class PostService {
         return post;
       });
 
-      return posts;
+      return {
+        totalPosts,
+        currentPage: page,
+        pageSize: pageSize,
+        posts,
+      };
     } catch (error) {
       throw error;
     }

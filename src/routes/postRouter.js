@@ -6,7 +6,7 @@ const { loginRequired, checkAuthor } = require("../middlewares/auth");
 // 게시물 생성
 router.post("/", loginRequired, postController.createPost);
 
-// 전체 게시물 조회
+// 페이지별 게시물 조회
 router.get("/all", postController.readAllPosts);
 
 // 게시물 조회
