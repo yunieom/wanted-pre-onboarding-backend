@@ -3,7 +3,8 @@ const connectToDatabase = require("../db/db");
 class PostService {
   // 게시물 생성
   async createPost(req, res) {
-    const { title, content, email } = req.body;
+    const { title, content } = req.body;
+    const email = req.user.email;
 
     if (!title || !content) {
       throw new Error("제목과 내용은 필수 입력 항목입니다.");

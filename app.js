@@ -8,6 +8,7 @@ const connectToDatabase = require("./src/db/db");
 const indexRouter = require("./src/routes/index");
 const userRouter = require("./src/routes/userRouter");
 const postRouter = require("./src/routes/postRouter");
+
 const port = Number(env.PORT || 5000);
 
 const allowedOrigins = [
@@ -30,6 +31,7 @@ const corsOptions = {
 
 // 데이터베이스 연결
 const con = connectToDatabase();
+
 app.listen(process.env.PORT, () => {
   console.log(port, "server on!");
 });
