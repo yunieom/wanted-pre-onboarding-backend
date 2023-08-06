@@ -1,7 +1,6 @@
 const connectToDatabase = require("../db/db");
-const fs = require("fs-extra");
 
-class PostController {
+class PostService {
   // 게시물 생성
   async createPost(req, res) {
     const { title, content, email } = req.body;
@@ -159,4 +158,4 @@ class PostController {
   }
 }
 
-module.exports = new PostController();
+module.exports = new PostService();

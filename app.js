@@ -9,6 +9,7 @@ const indexRouter = require("./src/routes/index");
 const userRouter = require("./src/routes/userRouter");
 const postRouter = require("./src/routes/postRouter");
 const port = Number(env.PORT || 5000);
+
 const allowedOrigins = [
   "http://127.0.0.1:3000",
   "http://127.0.0.1:5500",
