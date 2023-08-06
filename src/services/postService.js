@@ -32,7 +32,7 @@ class PostController {
   // 게시물 수정
   async updatePost(req, res) {
     const { title, content } = req.body;
-    const postId = req.param.postId;
+    const postId = req.params.postId;
     console.log(postId);
 
     try {

@@ -1,7 +1,7 @@
 const postService = require("../services/postService");
 
 const postController = {
-  //게시물생성
+  // 게시물 생성
   async createPost(req, res, next) {
     try {
       const postId = await postService.createPost(req);
@@ -11,7 +11,7 @@ const postController = {
     }
   },
 
-  //게시물수정
+  // 게시물 수정
   async updatePost(req, res, next) {
     try {
       const postId = await postService.updatePost(req);

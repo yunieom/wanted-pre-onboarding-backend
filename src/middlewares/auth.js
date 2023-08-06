@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const connectToDatabase = require("../db/db");
 
 const loginRequired = (req, res, next) => {
   const token = req.cookies.wanted_token;
@@ -25,25 +26,26 @@ const loginRequired = (req, res, next) => {
 const checkAuthor = async (req, res, next) => {
   const postId = req.params.postId;
 
-  console.log(req.user.email);
-  console.log(post.user.email);
+  //console.log(req.user.email);
 
   try {
     // 데이터베이스 연결
     const db = await connectToDatabase();
-
+    console.log("연결완료");
     // 게시물의 작성자 정보를 데이터베이스에서 조회
     const [posts] = await db
       .promise()
       .query("SELECT * FROM posts WHERE post_id = ?", [postId]);
     const post = posts[0];
+    console.log("post:", post);
+    console.log(post.email);
 
     if (!post) {
       return res.status(404).json({ error: "작성한 게시물이 없습니다." });
     }
 
     // 작성자와 로그인한 사용자를 비교하여 권한 확인
-    if (post.user.email !== req.user.email) {
+    if (post.email !== req.user.email) {
       return res.status(403).json({ error: "작성자만 수정할 수 있습니다." });
     }
 
