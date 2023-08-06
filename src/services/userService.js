@@ -103,6 +103,27 @@ class UserService {
       throw error;
     }
   }
+
+  /* 로그아웃 */
+  async logout(req) {
+    try {
+      const token = req.cookies.wanted_token;
+
+      if (!token) {
+        throw new Error("토큰이 존재하지 않습니다.");
+      }
+
+      const decoded = jwt.decode(token);
+
+      if (!decoded) {
+        throw new Error("잘못된 토큰입니다. 로그인 상태를 확인하세요.");
+      }
+
+      return { success: "로그아웃 되었습니다." };
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 const userService = new UserService();

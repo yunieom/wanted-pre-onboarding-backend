@@ -26,8 +26,6 @@ const loginRequired = (req, res, next) => {
 const checkAuthor = async (req, res, next) => {
   const postId = req.params.postId;
 
-  //console.log(req.user.email);
-
   try {
     // 데이터베이스 연결
     const db = await connectToDatabase();
