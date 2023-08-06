@@ -16,7 +16,6 @@ src
 └── services
     ├── userService.js
     └── postService.js
-
 ```
 
 ## 2. 데이터베이스 테이블 구조
