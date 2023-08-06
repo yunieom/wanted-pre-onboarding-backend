@@ -33,8 +33,11 @@ const postController = {
 
   // 게시물 수정
   async updatePost(req, res, next) {
+    const { result } = await postService.updatePost(req);
     try {
-      res.status(201).json({ success: "게시물 수정이 완료되었습니다." });
+      res
+        .status(201)
+        .json({ success: "게시물 수정이 완료되었습니다.", result });
     } catch (error) {
       next(error);
     }
