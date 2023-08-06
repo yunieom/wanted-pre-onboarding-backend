@@ -11,6 +11,16 @@ const postController = {
     }
   },
 
+  // 전체 게시물 조회
+  async readAllPosts(req, res, next) {
+    try {
+      const posts = await postService.readAllPosts(req);
+      res.status(200).json({ success: "게시물 조회에 성공했습니다.", posts });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   // 게시물 조회
   async readPost(req, res, next) {
     try {
@@ -24,10 +34,7 @@ const postController = {
   // 게시물 수정
   async updatePost(req, res, next) {
     try {
-      const { title, cotnent } = await postService.updatePost(req);
-      res
-        .status(201)
-        .json({ success: "게시물 수정이 완료되었습니다.", title, cotnent });
+      res.status(201).json({ success: "게시물 수정이 완료되었습니다." });
     } catch (error) {
       next(error);
     }
