@@ -39,11 +39,30 @@ class PostController {
       const db = await connectToDatabase();
 
       // 전체 게시물 목록 조회 쿼리
-      const query =
-        "SELECT * FROM posts ORDER BY post_id DESC LIMIT ? OFFSET ?";
-      const [posts] = await db
+      const query = "SELECT * FROM posts ORDER BY post_id ASC LIMIT ? OFFSET ?";
+      const [rows] = await db
         .promise()
         .query(query, [pageSize, (page - 1) * pageSize]);
+
+      // 시간 변환 처리
+      const posts = rows.map((row) => {
+        const post = { ...row };
+
+        // 데이터베이스에 저장된 UTC 시간을 아시아 서울시간으로 변환
+        const created_at = new Date(row.created_at);
+        const updated_at = new Date(row.updated_at);
+        post.created_at = new Date(
+          created_at.getTime() + 9 * 60 * 60 * 1000
+        ).toLocaleString("en-US", {
+          timeZone: "Asia/Seoul",
+        });
+        post.updated_at = new Date(
+          updated_at.getTime() + 9 * 60 * 60 * 1000
+        ).toLocaleString("en-US", {
+          timeZone: "Asia/Seoul",
+        });
+        return post;
+      });
 
       return posts;
     } catch (error) {

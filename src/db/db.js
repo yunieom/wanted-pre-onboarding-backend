@@ -1,31 +1,26 @@
-const mysql = require('mysql2');
-require('dotenv').config();
+const mysql = require("mysql2");
+require("dotenv").config();
+
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  connectionLimit: 10, // 커넥션 풀에 생성할 최대 커넥션 수
+});
 
 const connectToDatabase = () => {
-  const con = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      console.log("Database connected successfully.");
+      resolve(connection);
+    });
   });
-
-  con.connect(err => {
-    if (err) {
-      throw err;
-    }
-
-    console.log('Database connected Successfully.');
-  });
-
-  con.query('USE test', (err, result) => {
-    if (err) {
-      throw err;
-    }
-
-    console.log('USE test');
-  });
-
-  return con;
-}
+};
 
 module.exports = connectToDatabase;

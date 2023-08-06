@@ -4,7 +4,6 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const env = require("./envconfig");
 const connectToDatabase = require("./src/db/db");
-//const { errorHandlerMiddleware } = require('./middlewares/errorHandler');
 
 const indexRouter = require("./src/routes/index");
 const userRouter = require("./src/routes/userRouter");
@@ -28,14 +27,6 @@ const corsOptions = {
   credentials: true, // 쿠키를 허용하기 위한 설정
 };
 
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs-extra");
-
-if (!fs.existsSync("uploads")) {
-  fs.mkdirSync("uploads");
-}
-
 // 데이터베이스 연결
 const con = connectToDatabase();
 app.listen(process.env.PORT, () => {
@@ -49,6 +40,3 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
-// app.use('/static', express.static('public')); // 정적파일 관리 경로
-
-// app.use(errorHandlerMiddleware);
